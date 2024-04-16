@@ -2,6 +2,13 @@
 
 set -x
 port=8888
+dataset_folder="/Users/chenyifan/Documents/cel_nb_proj/datasets"
+final_dataset_folder="$PWD/notebooks/datasets"
+
+echo "Cloning datasets into folder: $dataset_folder"
+rm -r $final_dataset_folder
+mkdir -p $final_dataset_folder
+cp -r "$dataset_folder/" "$final_dataset_folder/"
 
 echo "Starting Jupyter notebooks"
 
