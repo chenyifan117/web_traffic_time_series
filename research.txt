@@ -1,0 +1,24 @@
+Time Series Model to Test:
+    - Linear regression (OLS, ridge, lasso, elastic net, ensemble)
+    - ARIMA (autoregressive integrated moving average)
+    - Exponential smoothing (Holt-Winters)
+    - VAR (vector autoregression)
+
+Testing guideline:
+    - Test all models on the na monthly sessions and pageviews data
+    - Test all models using the same evaluation metrics
+    - Each evaluation needs to forecast over the same period
+    - Visualizations of the forecast, along with metrics, need to be provided
+    - The experimentation code needs to be re-runnable from scratch
+
+Model Experimentaion Plan:
+    - One week of testing staring on 4/15, the presentations are due on 4/22
+    - The data to be modeled is for NA website monthly sessions and pageviews
+    - The eval metric will be as follows:
+        - Mean absolute error (MAE)
+        - Mean absolute percentage error (MAPE)
+        - Mean squared error (MSE)
+        - Root mean square error (RMSE)
+	- R-squared
+    - The forecast period for evaluation will be the last 5 years of the dataset
+    - Experimentation will be done in Jupyter notebooks running Python 3, utilizing the standard Anaconda build in a Docker container  
