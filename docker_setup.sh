@@ -12,11 +12,18 @@ cp -r "$dataset_folder/" "$final_dataset_folder/"
 
 echo "Starting Jupyter notebooks"
 
-docker run -i --name=TimeSeriesModelExpriment \
--v $(PWD)/notebooks:/opt/notebooks -t \
--p $port:$port continuumio/anaconda3 bin/bash \
--c "/opt/conda/bin/conda install jupyter -y --quiet && \
-    /opt/conda/bin/conda install -c conda-forge hyperopt=0.2.5 -y --quiet && \
-    mkdir -p /opt/notebooks && \
-    /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks \
-    --ip='*' --port=$port --no-browser --allow-root"
+if [ $(docker ps -a -f name=TimeSeriesModelExpriment | wc -l) -gt 1 ]; then
+    echo "Container TimeSeriesModelExpriment already exists."
+    docker start TimeSeriesModelExpriment
+    docker exec -it TimeSeriesModelExpriment /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks \
+    --ip='*' --port=$port --no-browser --allow-root
+else
+    docker run -i --name=TimeSeriesModelExpriment \
+    -v $(PWD)/notebooks:/opt/notebooks -t \
+    -p $port:$port continuumio/anaconda3 bin/bash \
+    -c "/opt/conda/bin/conda install jupyter -y --quiet && \
+        /opt/conda/bin/conda install -c conda-forge hyperopt=0.2.5 -y --quiet && \
+        mkdir -p /opt/notebooks && \
+        /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks \
+        --ip='*' --port=$port --no-browser --allow-root"
+fi
